@@ -1,0 +1,16 @@
+{
+  "name": "students",
+  "version": "1.0.0",
+  "description": "a training project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "https": "^1.0.0",
+    "sequelize": "^6.32.1"
+  }
+}
