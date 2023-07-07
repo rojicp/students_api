@@ -4,15 +4,14 @@ const controller = require("../controllers/students.controller")
 
 module.exports = function (app) {
   
+  // C R U D functions
 
   app.post("/student/create", controller.createRecord);
 
-  app.post("/student/list", (req, res) => {
-    res.json({ message: "This is a Student List." });
-  });
+  app.post("/student/update", controller.updateRecord);
 
-  app.post("/student/save", (req, res) => {
-    res.json({ message: "This is a Student Save." });
-  });
+  app.post("/student/getlist", controller.getList);
+
+  app.post("/student/delete", controller.deleteRecord);
 
 };
