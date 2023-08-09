@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 
 //add more routes
 require("./app/routes/students.routes")(app);
+require("./app/routes/course.routes")(app);
 
 // start server and port listening
 app.listen(8080, () => {

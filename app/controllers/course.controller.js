@@ -1,24 +1,20 @@
 const db = require("../models");
-const Students = db.student;
+const Course = db.course;
 
 exports.createRecord = (req, res) => {
-  if (!req.body.student_name || !req.body.student_age) {
+  if (!req.body.course_name) {
     res.send({
       message: "Mandatory fields are not provided...",
     });
   } else {
-    Students.create({
-      student_name: req.body.student_name,
-      student_age: req.body.student_age,
-      address: req.body.address,
-      gender: req.body.gender,
-      course_id: req.body.course_id,
+    Course.create({
       course_name: req.body.course_name,
+      course_details: req.body.course_details,
     })
-      .then((student_record) => {
+      .then((course_record) => {
         res.send({
           message: "Record created successfully",
-          id: student_record.id,
+          id: course_record.id,
         });
       })
       .catch((error) => {
@@ -31,23 +27,18 @@ exports.createRecord = (req, res) => {
 };
 
 exports.updateRecord = async (req, res) => {
-  if (!req.body.id || !req.body.student_name || !req.body.student_age) {
+  if (!req.body.id || !req.body.course_name) {
     res.send({
       message: "Mandatory fields are not provided...",
     });
   } else {
-    Students.findOne({
+    Course.findOne({
       where: { id: req.body.id },
-    }).then(async (student_record) => {
-      if (student_record) {
-        student_record.student_name = req.body.student_name;
-        student_record.student_age = req.body.student_age;
-        student_record.address =  req.body.address,
-        student_record.gender =  req.body.gender,
-        student_record.course_id = req.body.course_id,
-        student_record.course_name = req.body.course_name,
- 
-        await student_record
+    }).then(async (course_record) => {
+      if (course_record) {
+        course_record.course_name = req.body.course_name;
+        course_record.course_details = req.body.course_details;
+        await course_record
           .save()
           .then((result) => {
             res.send({
@@ -76,8 +67,8 @@ exports.getList = async (req, res) => {
       message: "Mandatory fields are not provided...",
     });
   } else {
-    Students.findAll({
-      attributes: ["id", "student_name", "student_age", "address", "gender", "course_name"],
+    Course.findAll({
+      attributes: ["id", "course_name", "course_details"],
       order: [["id", "ASC"]],
     }).then((records) => {
       res.status(200).send({
@@ -94,11 +85,11 @@ exports.deleteRecord = async (req, res) => {
       message: "Mandatory fields are not provided...",
     });
   } else {
-    Students.findOne({
+    Course.findOne({
       where: { id: req.body.id },
-    }).then(async (student_record) => {
-      if (student_record) {
-        await student_record.destroy();
+    }).then(async (course_record) => {
+      if (course_record) {
+        await course_record.destroy();
         res.send({
           message: "Record deleted successfully...",
         });

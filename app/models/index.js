@@ -27,6 +27,8 @@ db.sequelizeConn = sequelizeConn;
 
 db.student = require("./students.model.js")(sequelizeConn, Sequelize);
 db.subject = require("./subjects.model.js")(sequelizeConn, Sequelize);
+db.course = require("./course.model.js")(sequelizeConn, Sequelize);
+
 
 //sync database
 db.sequelizeConn
