@@ -42,25 +42,24 @@ exports.updateRecord = async (req, res) => {
       if (student_record) {
         student_record.student_name = req.body.student_name;
         student_record.student_age = req.body.student_age;
-        student_record.address =  req.body.address,
-        student_record.gender =  req.body.gender,
-        student_record.course_id = req.body.course_id,
-        student_record.course_name = req.body.course_name,
- 
-        await student_record
-          .save()
-          .then((result) => {
-            res.send({
-              message: "Record saved successfully",
+        (student_record.address = req.body.address),
+          (student_record.gender = req.body.gender),
+          (student_record.course_id = req.body.course_id),
+          (student_record.course_name = req.body.course_name),
+          await student_record
+            .save()
+            .then((result) => {
+              res.send({
+                message: "Record saved successfully",
+              });
+            })
+            .catch((error) => {
+              res.send({
+                message: "Some error occured",
+                error_details: error.message,
+              });
+              return;
             });
-          })
-          .catch((error) => {
-            res.send({
-              message: "Some error occured",
-              error_details: error.message,
-            });
-            return;
-          });
       } else {
         res.send({
           message: "Record not found...",
@@ -77,13 +76,28 @@ exports.getList = async (req, res) => {
     });
   } else {
     Students.findAll({
-      attributes: ["id", "student_name", "student_age", "address", "gender", "course_name"],
+      attributes: [
+        "id",
+        "student_name",
+        "student_age",
+        "address",
+        "gender",
+        "course_name",
+      ],
       order: [["id", "ASC"]],
     }).then((records) => {
+      
       res.status(200).send({
         message: "Success",
         listData: records,
       });
+
+      // setTimeout(function() {
+      //   res.status(200).send({
+      //     message: "Success",
+      //     listData: records,
+      //   });
+      // }, 2000);
     });
   }
 };
